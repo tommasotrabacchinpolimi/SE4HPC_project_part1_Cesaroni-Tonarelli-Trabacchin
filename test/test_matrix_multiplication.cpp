@@ -6,6 +6,9 @@
 // ######################### Source code of multiplyMatrices in src/matrix_mult
 
 
+/*
+    6,12,14,20
+*/
 TEST(MatrixMultiplicationTest, TestMultiplyMatrices) {
     std::vector<std::vector<int>> A = {
         {1, 2, 3},
@@ -27,7 +30,9 @@ TEST(MatrixMultiplicationTest, TestMultiplyMatrices) {
 
     ASSERT_EQ(C, expected) << "Matrix multiplication test failed! :(((()";
 }
-
+/*
+    6,2,12,18,20
+*/
 TEST(MatrixMultiplicationTest, TestMultiplySquareMatrices) {
     std::vector<std::vector<int>> A = {
         {1, 2, 3},
@@ -53,6 +58,9 @@ TEST(MatrixMultiplicationTest, TestMultiplySquareMatrices) {
 
 }
 
+/*
+1,5,8,3,7,11,12,13,18,20
+*/
 TEST(MatrixMultiplicationTest, TestMultiplyCorrectMatrices) {
     std::vector<std::vector<int>> A = {
         {1, 0, 2},
