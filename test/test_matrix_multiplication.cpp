@@ -124,7 +124,17 @@ TEST(MatrixMultiplicationTest, TestNullElementMatrices) {
 /*
  ***************************************************************************************
  ***************************************************************************************
- * From the above three tests, the following errors has been found: ...
+ * From the above three tests, the following errors has been found:
+ * Error 3: Matrix A contains a negative number!
+ * Error 5: Matrix B contains a negative number!
+ * Error 6: Result matrix contains a number bigger than 100!
+ * Error 8: Result matrix contains zero!
+ * Error 11: Every row in matrix B contains at least one '0'!
+ * Error 12: The number of rows in A is equal to the number of columns in B!
+ * Error 13: The first element of matrix A is equal to the first element of matrix B!
+ * Error 14: The result matrix C has an even number of rows!
+ * Error 18: Matrix A is a square matrix!
+
  * Therefore, the next tests were run in order to find related errors.
  ***************************************************************************************
  ***************************************************************************************
