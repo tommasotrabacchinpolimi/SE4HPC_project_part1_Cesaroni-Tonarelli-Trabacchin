@@ -124,7 +124,7 @@ TEST(MatrixMultiplicationTest, TestNullElementMatrices) {
 /*
  ***************************************************************************************
  ***************************************************************************************
- * From the above three tests run multiple times, the following errors has been found:
+ * From the above three tests run multiple times, the following errors have been found:
  * Errors 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17, 18, 20.
  *
  * Therefore, the next tests were run in order to find related errors.
