@@ -1,6 +1,8 @@
 #include "matrix_multiplication.h"
 #include <iostream>
 #include <vector>
+#include <time.h>
+#include <stdlib.h>
 #include <gtest/gtest.h>
 
 
@@ -38,24 +40,18 @@
  ***************************************************************************************
  ***************************************************************************************
  * The tests were generated in a black box manner.
- * ....
- ***************************************************************************************
- ***************************************************************************************
- */
-
-/*
- ***************************************************************************************
- ***************************************************************************************
- * The below three tests verifies if the properties of the matrix multiplication
- * are satisfied.
+ * The first tests are based in a metamorphic testing approach, verifying if
+ * the three below properties of the matrix multiplication are satisfied:
  * 1) Associative properties: (AB)C = A(BC)
  * 2) Identity element: AI = IA where I is the identity matrix
  * 3) Null element: A0 = 0 where 0 is the matrix of all zero elements
  ***************************************************************************************
  ***************************************************************************************
 */
+
 TEST(MatrixMultiplicationTest, TestAssociativePropertyMatrices) {
-    int n=10;
+    int n = 10;
+    std::srand((unsigned)std::time(NULL));
     std::vector<std::vector<int>> A(n, std::vector<int>(n, 0));
     std::vector<std::vector<int>> B(n, std::vector<int>(n, 0));
     std::vector<std::vector<int>> C(n, std::vector<int>(n, 0));
@@ -65,14 +61,15 @@ TEST(MatrixMultiplicationTest, TestAssociativePropertyMatrices) {
 
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            A[i][j] = rand();
-            B[i][j] = rand();
-            C[i][j] = rand();
+            A[i][j] = std::rand() % 10;
+            B[i][j] = std::rand() % 10;
+            C[i][j] = std::rand() % 10;
         }
     }
-
+    // (AB)C
     multiplyMatrices(A, B, temp, n, n, n);
     multiplyMatrices(temp, C, result1, n, n, n);
+    // A(BC)
     multiplyMatrices(B, C, temp, n, n, n);
     multiplyMatrices(A, temp, result2, n, n, n);
 
@@ -82,39 +79,46 @@ TEST(MatrixMultiplicationTest, TestAssociativePropertyMatrices) {
 
 
 TEST(MatrixMultiplicationTest, TestIdentityElementMatrices) {
-    int n=10;
+    int n = 9;
+    std::srand((unsigned)std::time(NULL));
     std::vector<std::vector<int>> A(n, std::vector<int>(n, 0));
     std::vector<std::vector<int>> I(n, std::vector<int>(n, 0));
     std::vector<std::vector<int>> result1(n, std::vector<int>(n, 0));
     std::vector<std::vector<int>> result2(n, std::vector<int>(n, 0));
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            A[i][j] = rand();
+            A[i][j] = std::rand() % 10;
             if(i==j){
                 I[i][j] = 1;
             }
         }
     }
-
-
+    // AI
     multiplyMatrices(A, I, result1, n, n, n);
+    // IA
     multiplyMatrices(I, A, result2, n, n, n);
 
     ASSERT_EQ(result1, result2) << "Identity Element Matrix multiplication test failed! :(((()";
-
 }
 
 
 TEST(MatrixMultiplicationTest, TestNullElementMatrices) {
-    int n=10;
+    int n = 8;
+    std::srand((unsigned)std::time(NULL));
     std::vector<std::vector<int>> A(n, std::vector<int>(n, 0));
     std::vector<std::vector<int>> zero(n, std::vector<int>(n, 0));
     std::vector<std::vector<int>> result1(n, std::vector<int>(n, 0));
     std::vector<std::vector<int>> result2(n, std::vector<int>(n, 0));
 
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            A[i][j] = std::rand() % 10;
+        }
+    }
+
     multiplyMatrices(A, zero, result1, n, n, n);
 
-    ASSERT_EQ(result1, result2) << "Null Element Matrix multiplication test failed! :(((()";
+    ASSERT_EQ(result1, zero) << "Null Element Matrix multiplication test failed! :(((()";
 }
 
 /*
