@@ -223,7 +223,7 @@ TEST(MatrixMultiplicationTest, TestRandomRectangularMatrices) {
 
     multiplyMatrices(A, B, C, rowA, colA, colB);
 
-    ASSERT_EQ(C, expected) << "Random2 Element Matrix multiplication test failed! :(((()";
+    ASSERT_EQ(C, expected) << "Rectangular Matrix multiplication test failed! :(((()";
 }
 
 
