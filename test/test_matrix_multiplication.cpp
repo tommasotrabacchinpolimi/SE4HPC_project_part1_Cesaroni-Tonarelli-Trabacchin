@@ -55,76 +55,66 @@
  ***************************************************************************************
 */
 TEST(MatrixMultiplicationTest, TestAssociativePropertyMatrices) {
-    std::vector<std::vector<int>> A = {
-        {1, 2, 3},
-        {4, 5, 6}
-    };
-    std::vector<std::vector<int>> B = {
-        {7, 8},
-        {9, 10},
-        {11, 12}
-    };
-    std::vector<std::vector<int>> C(2, std::vector<int>(2, 0));
+    int n=10;
+    std::vector<std::vector<int>> A(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> B(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> C(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> temp(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> result1(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> result2(n, std::vector<int>(n, 0));
 
-    multiplyMatrices(A, B, C, 2, 3, 2);
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            A[i][j] = rand();
+            B[i][j] = rand();
+            C[i][j] = rand();
+        }
+    }
 
-    std::vector<std::vector<int>> expected = {
-        {58, 64},
-        {139, 154}
-    };
+    multiplyMatrices(A, B, temp, n, n, n);
+    multiplyMatrices(temp, C, result1, n, n, n);
+    multiplyMatrices(B, C, temp, n, n, n);
+    multiplyMatrices(A, temp, result2, n, n, n);
 
-    ASSERT_EQ(C, expected) << "Associativity Matrix multiplication test failed! :(((()";
+
+    ASSERT_EQ(result1, result2) << "Associativity Matrix multiplication test failed! :(((()";
 }
 
 
 TEST(MatrixMultiplicationTest, TestIdentityElementMatrices) {
-    std::vector<std::vector<int>> A = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}
-    };
-    std::vector<std::vector<int>> B = {
-        {10, 11, 12},
-        {13, 14, 15},
-        {16, 17, 18}
-    };
-    std::vector<std::vector<int>> C(3, std::vector<int>(3, 0));
+    int n=10;
+    std::vector<std::vector<int>> A(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> I(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> result1(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> result2(n, std::vector<int>(n, 0));
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            A[i][j] = rand();
+            if(i==j){
+                I[i][j] = 1;
+            }
+        }
+    }
 
-    multiplyMatrices(A, B, C, 3, 3, 3);
 
-    std::vector<std::vector<int>> expected = {
-        {84, 90, 96},
-        {201, 216, 231},
-        {318, 342, 366}
-    };
+    multiplyMatrices(A, I, result1, n, n, n);
+    multiplyMatrices(I, A, result2, n, n, n);
 
-    ASSERT_EQ(C, expected) << "Identity Element Matrix multiplication test failed! :(((()";
+    ASSERT_EQ(result1, result2) << "Identity Element Matrix multiplication test failed! :(((()";
 
 }
 
 
 TEST(MatrixMultiplicationTest, TestNullElementMatrices) {
-    std::vector<std::vector<int>> A = {
-        {1, 0, 2},
-        {0, 1, -1},
-        {2, 8, 1}
-    };
-    std::vector<std::vector<int>> B = {
-        {1, 0, 0},
-        {0, 1, -1},
-        {-20, 0, 1}
-    };
-    std::vector<std::vector<int>> C(3, std::vector<int>(3, 0));
+    int n=10;
+    std::vector<std::vector<int>> A(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> zero(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> result1(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> result2(n, std::vector<int>(n, 0));
 
-    multiplyMatrices(A, B, C, 3, 3, 3);
+    multiplyMatrices(A, zero, result1, 3, 3, 3);
 
-    std::vector<std::vector<int>> expected = {
-        {1, 0, 0},
-        {0, 1, 0},
-        {0, 0, 1}
-    };
-
-    ASSERT_EQ(C, expected) << "Null Element Matrix multiplication test failed! :(((()";
+    ASSERT_EQ(result1, result2) << "Null Element Matrix multiplication test failed! :(((()";
 }
 
 /*
