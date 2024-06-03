@@ -140,6 +140,71 @@ TEST(MatrixMultiplicationTest, TestNullElementMatrices) {
  ***************************************************************************************
  */
 
+TEST(MatrixMultiplicationTest, TestRandom1ElementMatrices) {
+    int n = 5;
+    std::vector<std::vector<int>> A(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> B(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> C(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> expected(n, std::vector<int>(n, 0));
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            A[i][j]=i+1;
+            expected[i][j] = i+1;
+            if(i==j){
+                B[i][j]=1;
+            }
+        }
+    }
+
+    multiplyMatrices(A, B, C, n, n, n);
+
+    ASSERT_EQ(C, expected) << "Random1 Element Matrix multiplication test failed! :(((()";
+}
+
+/*
+ ***************************************************************************************
+ ***************************************************************************************
+ * From the above test, the following error has been found:
+ * Error 15: A row in matrix A is filled entirely with 5s!
+
+ ***************************************************************************************
+ ***************************************************************************************
+ */
+
+
+
+TEST(MatrixMultiplicationTest, TestRandom2ElementMatrices) {
+    int n = 8;
+    std::vector<std::vector<int>> A(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> B(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> C(n, std::vector<int>(n, 0));
+    std::vector<std::vector<int>> expected(n, std::vector<int>(n, 0));
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            A[i][j]=j+1;
+            expected[i][j] = j+1;
+            if(i==j){
+                B[i][j]=1;
+            }
+        }
+    }
+
+    multiplyMatrices(A, B, C, n, n, n);
+
+    ASSERT_EQ(C, expected) << "Random2 Element Matrix multiplication test failed! :(((()";
+}
+
+/*
+ ***************************************************************************************
+ ***************************************************************************************
+ * From the above test, the following error has been found:
+ * Error 19: Every row in matrix A contains the number 8!
+
+ ***************************************************************************************
+ ***************************************************************************************
+*/
+
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
