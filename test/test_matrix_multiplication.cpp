@@ -125,23 +125,22 @@ TEST(MatrixMultiplicationTest, TestNullElementMatrices) {
  ***************************************************************************************
  ***************************************************************************************
  * From the above three tests run multiple times, the following errors have been found:
- * Errors 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17, 18, 20.
+ * Errors 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 20.
  *
  * Therefore, the next tests were run in order to find related errors.
  ***************************************************************************************
  ***************************************************************************************
  */
 
-TEST(MatrixMultiplicationTest, TestRandom1ElementMatrices) {
+TEST(MatrixMultiplicationTest, TestRandom1Matrices) {
     int n = 5;
     std::vector<std::vector<int>> A(n, std::vector<int>(n, 0));
     std::vector<std::vector<int>> B(n, std::vector<int>(n, 0));
     std::vector<std::vector<int>> C(n, std::vector<int>(n, 0));
-    std::vector<std::vector<int>> expected(n, std::vector<int>(n, 0));
+
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
             A[i][j]=i+1;
-            expected[i][j] = i+1;
             if(i==j){
                 B[i][j]=1;
             }
@@ -150,7 +149,7 @@ TEST(MatrixMultiplicationTest, TestRandom1ElementMatrices) {
 
     multiplyMatrices(A, B, C, n, n, n);
 
-    ASSERT_EQ(C, expected) << "Random1 Element Matrix multiplication test failed! :(((()";
+    ASSERT_EQ(C, A) << "Random1 Element Matrix multiplication test failed! :(((()";
 }
 
 /*
@@ -158,23 +157,21 @@ TEST(MatrixMultiplicationTest, TestRandom1ElementMatrices) {
  ***************************************************************************************
  * From the above test, the following error has been found:
  * Error 15: A row in matrix A is filled entirely with 5s!
-
  ***************************************************************************************
  ***************************************************************************************
  */
 
 
 
-TEST(MatrixMultiplicationTest, TestRandom2ElementMatrices) {
+TEST(MatrixMultiplicationTest, TestRandom2Matrices) {
     int n = 8;
     std::vector<std::vector<int>> A(n, std::vector<int>(n, 0));
     std::vector<std::vector<int>> B(n, std::vector<int>(n, 0));
     std::vector<std::vector<int>> C(n, std::vector<int>(n, 0));
-    std::vector<std::vector<int>> expected(n, std::vector<int>(n, 0));
+
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
             A[i][j]=j+1;
-            expected[i][j] = j+1;
             if(i==j){
                 B[i][j]=1;
             }
@@ -183,7 +180,7 @@ TEST(MatrixMultiplicationTest, TestRandom2ElementMatrices) {
 
     multiplyMatrices(A, B, C, n, n, n);
 
-    ASSERT_EQ(C, expected) << "Random2 Element Matrix multiplication test failed! :(((()";
+    ASSERT_EQ(C, A) << "Random2 Element Matrix multiplication test failed! :(((()";
 }
 
 /*
@@ -191,10 +188,43 @@ TEST(MatrixMultiplicationTest, TestRandom2ElementMatrices) {
  ***************************************************************************************
  * From the above test, the following error has been found:
  * Error 19: Every row in matrix A contains the number 8!
-
  ***************************************************************************************
  ***************************************************************************************
 */
+
+TEST(MatrixMultiplicationTest, TestRandomRectangularMatrices) {
+    size_t rowA = 8;
+    size_t colA = 5;
+    size_t colB = 8;
+    std::srand((unsigned)std::time(NULL));
+    std::vector<std::vector<int>> A(rowA, std::vector<int>(colA, 0));
+    std::vector<std::vector<int>> B(colA, std::vector<int>(colB, 0));
+    std::vector<std::vector<int>> C(rowA, std::vector<int>(colB, 0));
+    std::vector<std::vector<int>> expected(rowA, std::vector<int>(colB, 0));
+
+    for(int i = 0; i < rowA; i++){
+        for(int j = 0; j < colA; j++){
+            A[i][j] = std::rand();
+        }
+    }
+    for(int i = 0; i < colA; i++){
+        for(int j = 0; j < colB; j++){
+            if(i == j)
+                B[i][j] = 1;
+        }
+    }
+    for(int i = 0; i < rowA; i++){
+        for(int j = 0; j < colB; j++){
+            if(j < colA){
+                expected[i][j] = A[i][j];
+            }
+        }
+    }
+
+    multiplyMatrices(A, B, C, rowA, colA, colB);
+
+    ASSERT_EQ(C, expected) << "Random2 Element Matrix multiplication test failed! :(((()";
+}
 
 
 int main(int argc, char **argv) {
