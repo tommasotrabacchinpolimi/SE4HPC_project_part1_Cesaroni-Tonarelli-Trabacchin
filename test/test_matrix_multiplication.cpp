@@ -112,7 +112,7 @@ TEST(MatrixMultiplicationTest, TestNullElementMatrices) {
     std::vector<std::vector<int>> result1(n, std::vector<int>(n, 0));
     std::vector<std::vector<int>> result2(n, std::vector<int>(n, 0));
 
-    multiplyMatrices(A, zero, result1, 3, 3, 3);
+    multiplyMatrices(A, zero, result1, n, n, n);
 
     ASSERT_EQ(result1, result2) << "Null Element Matrix multiplication test failed! :(((()";
 }
