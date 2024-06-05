@@ -39,10 +39,10 @@
 /*
  ***************************************************************************************
  ***************************************************************************************
- * The tests were generated in a black box manner.
- * The first tests are based in a metamorphic testing approach, verifying if
- * the three below properties of the matrix multiplication are satisfied:
- * 1) Associative properties: (AB)C = A(BC)
+ * The tests are based on a black box approach.
+ * The first tests are based on the verification of the three below
+ * properties of the matrix multiplication:
+ * 1) Associative property: (AB)C = A(BC)
  * 2) Identity element: AI = IA where I is the identity matrix
  * 3) Null element: A0 = 0 where 0 is the matrix of all zero elements
  ***************************************************************************************
